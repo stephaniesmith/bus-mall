@@ -113,6 +113,7 @@ const poll = {
             const item = this.product[i];
             names.push(item.name);
         }
+        console.log(names);
         return names;
     }
 };
