@@ -54,11 +54,13 @@ const poll = {
     },
 
     next: function () {
-        if (poll.pollsClicked < 25) {
-            poll.showProduct();
+        if (this.pollsClicked < 25) {
+            this.showProduct();
         } else {
-            //build a table of the votes
-            console.log('done');
+            const otherSection = document.getElementById('votes');
+            const p = document.createElement('p');
+            p.textContent = this.product;
+            otherSection.appendChild(p);
         }
 
     },
