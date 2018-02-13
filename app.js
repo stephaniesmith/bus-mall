@@ -45,6 +45,8 @@ const poll = {
                     console.table(selectedProduct);
                 }
             }
+            poll.clear();
+            poll.showProduct();
         });
     },
 
@@ -67,6 +69,13 @@ const poll = {
 
         for (let i = 0; i < allDiv.length; i++) {
             allDiv[i].appendChild(img[i].render());
+        }
+    },
+
+    clear: function () {
+        const allDiv = document.querySelectorAll('div.item');
+        for (let i = 0; i < allDiv.length; i ++) {
+            allDiv[i].textContent = '';
         }
     }
 };
