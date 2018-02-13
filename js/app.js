@@ -3,6 +3,7 @@
 const poll = {
     product: [],
     pollsClicked: 0,
+    options: document.getElementById('row'),
     start: function () {
 
         this.product.push (
@@ -30,33 +31,14 @@ const poll = {
 
         this.showProduct();
 
-        const options = document.getElementById('row');
-        options.addEventListener('click', function () {
-            console.log('game was clicked', event.target);
-
-            const url = event.target.src;
-            for(let i = 0; i < poll.product.length; i++) {
-                const selectedProduct = poll.product[i];
-
-                console.log('index of url', url.indexOf(selectedProduct.filePath));
-                const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
-
-                if (endOfUrl === selectedProduct.filePath) {
-                    selectedProduct.timesClicked++;
-                    console.table(selectedProduct);
-                }
-            }
-            poll.pollsClicked++;
-            console.log(poll.pollsClicked);
-            poll.clear();
-            poll.next();
-        });
+        this.options.addEventListener('click', clickHandler);
     },
 
     next: function () {
         if (this.pollsClicked < 25) {
             this.showProduct();
         } else {
+            
             const count = this.score();
             const names = this.name();
             const otherSection = document.getElementById('votes');
@@ -116,6 +98,27 @@ const poll = {
         console.log(names);
         return names;
     }
+};
+
+function clickHandler() {
+    console.log('game was clicked', event.target);
+
+    const url = event.target.src;
+    for(let i = 0; i < poll.product.length; i++) {
+        const selectedProduct = poll.product[i];
+
+        console.log('index of url', url.indexOf(selectedProduct.filePath));
+        const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
+
+        if (endOfUrl === selectedProduct.filePath) {
+            selectedProduct.timesClicked++;
+            console.table(selectedProduct);
+        }
+    }
+    poll.pollsClicked++;
+    console.log(poll.pollsClicked);
+    poll.clear();
+    poll.next();
 };
 
 function Product (name, filePath, timesShown, timesClicked) {
