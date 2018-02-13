@@ -10,5 +10,7 @@ div {
 
 img {
     display: block;
-    width: 25%;
+    width: 30%;
+    margin: 5px;
+    float: left;
 }

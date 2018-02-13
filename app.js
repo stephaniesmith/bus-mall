@@ -54,7 +54,7 @@ const poll = {
     },
 
     next: function () {
-        if (this.pollsClicked < 2) {
+        if (this.pollsClicked < 25) {
             this.showProduct();
         } else {
             name = this.score();
