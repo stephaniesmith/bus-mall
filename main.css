@@ -1,0 +1,9 @@
+div {
+    width: fit-content;
+    height: fit-content;
+}
+
+img {
+    display: block;
+    width: 25%;
+}

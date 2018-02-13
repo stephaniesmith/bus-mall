@@ -7,7 +7,7 @@ const poll = {
         this.product.push (
             new Product ('bag', 'img/bag.jpg'),
             new Product ('banana', 'img/banana.jpg'),
-            new Product ('bathroom', 'img/bathroom'),
+            new Product ('bathroom', 'img/bathroom.jpg'),
             new Product ('boots', 'img/boots.jpg'),
             new Product ('brefast', 'img/breakfast.jpg'),
             new Product ('bubblegum', 'img/bubblegum.jpg'),
@@ -17,17 +17,35 @@ const poll = {
             new Product ('dragon', 'img/dragon.jpg'),
             new Product ('pen', 'img/pen.jpg'),
             new Product ('pet-sweep', 'img/pet-sweep.jpg'),
-            new Product ('scissors', 'img/sissors.jpg'),
+            new Product ('scissors', 'img/scissors.jpg'),
             new Product ('shark', 'img/shark.jpg'),
             new Product ('sweep', 'img/sweep.png'),
             new Product ('tauntaun', 'img/tauntaun.jpg'),
             new Product ('unicorn', 'img/unicorn.jpg'),
             new Product ('usb', 'img/usb.gif'),
             new Product ('water-can', 'img/water-can.jpg'),
-            new Product ('wine-glass', 'img/wine.glass.jpg')
+            new Product ('wine-glass', 'img/wine-glass.jpg')
         );
 
         this.showProduct();
+
+        const options = document.getElementById('row');
+        options.addEventListener('click', function () {
+            console.log('game was clicked', event.target);
+
+            const url = event.target.src;
+            for(let i = 0; i < poll.product.length; i++) {
+                const selectedProduct = poll.product[i];
+
+                console.log('index of url', url.indexOf(selectedProduct.filePath));
+                const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
+
+                if (endOfUrl === selectedProduct.filePath) {
+                    selectedProduct.timesClicked++;
+                    console.table(selectedProduct);
+                }
+            }
+        });
     },
 
     getRandomProduct: function () {
@@ -44,17 +62,14 @@ const poll = {
     },
 
     showProduct: function () {
-        const products = this.getRandomProduct;
-        
+        const img = this.getRandomProduct();
+        const allDiv = document.querySelectorAll('div.item');
+
+        for (let i = 0; i < allDiv.length; i++) {
+            allDiv[i].appendChild(img[i].render());
+        }
     }
 };
-
-
-
-
-
-
-
 
 function Product (name, filePath, timesShown, timesClicked) {
     this.name = name;
