@@ -38,15 +38,11 @@ const poll = {
         if (this.pollsClicked < 25) {
             this.showProduct();
         } else {
-            
-            const count = this.score();
-            const names = this.name();
-            const otherSection = document.getElementById('votes');
-            for (let i = 0; i < count.length; i++) {
-                const p = document.createElement('p');
-                p.textContent = `${count[i]} of votes for ${names[i]}`;
-                otherSection.appendChild(p);
-            }
+            this.options.removeEventListener('click', clickHandler);
+            const section = this.options;
+            const p = document.createElement('p');
+            p.textContent = 'GAME OVER';
+            section.appendChild(p);
         }
     },
 
