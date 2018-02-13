@@ -43,7 +43,40 @@ const poll = {
             const p = document.createElement('p');
             p.textContent = 'GAME OVER';
             section.appendChild(p);
+
+            this.drawChart();
         }
+    },
+
+    drawChart: function () {
+        const chartCanvas = document.getElementById('chart');
+        const chartCtx = chartCanvas.getContext('2d');
+
+        const names = name();
+        const clicks = score();
+
+        console.log('names: ', names);
+        console.log('clicks: ', clicks);
+
+        const chart = new Chart(chartCtx, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [{
+                    label: 'number of times picked',
+                    data: clicks
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
     },
 
     getRandomProduct: function () {
@@ -74,26 +107,25 @@ const poll = {
         for (let i = 0; i < allDiv.length; i ++) {
             allDiv[i].textContent = '';
         }
-    },
-
-    score: function () {
-        const count = [];
-        for (let i = 0; i < this.product.length; i++) {
-            const item = this.product[i];
-            count.push(item.timesClicked);
-        }
-        return count;
-    },
-
-    name: function () {
-        const names = [];
-        for (let i = 0; i < this.product.length; i++) {
-            const item = this.product[i];
-            names.push(item.name);
-        }
-        console.log(names);
-        return names;
     }
+};
+
+function score () {
+    const count = [];
+    for (let i = 0; i < poll.product.length; i++) {
+        const item = poll.product[i];
+        count.push(item.timesClicked);
+    }
+    return count;
+};
+
+function name () {
+    const names = [];
+    for (let i = 0; i < poll.product.length; i++) {
+        const item = poll.product[i];
+        names.push(item.name);
+    }
+    return names;
 };
 
 function clickHandler() {
