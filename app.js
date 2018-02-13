@@ -2,6 +2,7 @@
 
 const poll = {
     product: [],
+    pollsClicked: 0,
     start: function () {
 
         this.product.push (
@@ -45,18 +46,31 @@ const poll = {
                     console.table(selectedProduct);
                 }
             }
+            poll.pollsClicked++;
+            console.log(poll.pollsClicked);
             poll.clear();
-            poll.showProduct();
+            poll.next();
         });
+    },
+
+    next: function () {
+        if (poll.pollsClicked < 25) {
+            poll.showProduct();
+        } else {
+            //build a table of the votes
+            console.log('done');
+        }
+
     },
 
     getRandomProduct: function () {
         const selectedProduct = [];
-        for (let i = 0; i < 3; i++) {
+        while (selectedProduct.length < 3) {
             const min = Math.ceil(0);
             const max = Math.floor(19);
             const number = Math.floor(Math.random() * (max - min + 1)) + min;
             const item = this.product[number];
+            if (selectedProduct.includes(item)) continue;
             selectedProduct.push(item);
         }
         console.log(selectedProduct);
