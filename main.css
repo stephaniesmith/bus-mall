@@ -1,0 +1,16 @@
+/* section {
+    display: inline-block;
+    width: 100%;
+} */
+
+div {
+    width: fit-content;
+    height: fit-content;
+}
+
+img {
+    display: block;
+    width: 30%;
+    margin: 5px;
+    float: left;
+}
