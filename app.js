@@ -54,15 +54,17 @@ const poll = {
     },
 
     next: function () {
-        if (this.pollsClicked < 25) {
+        if (this.pollsClicked < 2) {
             this.showProduct();
         } else {
+            name = this.score();
             const otherSection = document.getElementById('votes');
-            const p = document.createElement('p');
-            p.textContent = this.product;
-            otherSection.appendChild(p);
+            for (let i = 0; i < name.length; i++) {
+                const p = document.createElement('p');
+                p.textContent = `# of votes for ${name[i]}`;
+                otherSection.appendChild(p);
+            }
         }
-
     },
 
     getRandomProduct: function () {
@@ -93,6 +95,17 @@ const poll = {
         for (let i = 0; i < allDiv.length; i ++) {
             allDiv[i].textContent = '';
         }
+    },
+
+    score: function () {
+        const names = [];
+        const count = [];
+        for (let i = 0; i < this.product.length; i++) {
+            const item = this.product[i];
+            names.push(item.name);
+            count.push(item.timesClicked);
+        }
+        return names;
     }
 };
 
