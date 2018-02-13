@@ -58,7 +58,7 @@ const poll = {
             this.showProduct();
         } else {
             const count = this.score();
-            const names = this.name;
+            const names = this.name();
             const otherSection = document.getElementById('votes');
             for (let i = 0; i < count.length; i++) {
                 const p = document.createElement('p');
