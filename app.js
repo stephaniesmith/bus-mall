@@ -57,11 +57,12 @@ const poll = {
         if (this.pollsClicked < 25) {
             this.showProduct();
         } else {
-            name = this.score();
+            const count = this.score();
+            const names = this.name;
             const otherSection = document.getElementById('votes');
-            for (let i = 0; i < name.length; i++) {
+            for (let i = 0; i < count.length; i++) {
                 const p = document.createElement('p');
-                p.textContent = `# of votes for ${name[i]}`;
+                p.textContent = `${count[i]} of votes for ${names[i]}`;
                 otherSection.appendChild(p);
             }
         }
@@ -98,12 +99,19 @@ const poll = {
     },
 
     score: function () {
-        const names = [];
         const count = [];
         for (let i = 0; i < this.product.length; i++) {
             const item = this.product[i];
-            names.push(item.name);
             count.push(item.timesClicked);
+        }
+        return count;
+    },
+
+    name: function () {
+        const names = [];
+        for (let i = 0; i < this.product.length; i++) {
+            const item = this.product[i];
+            names.push(item.name);
         }
         return names;
     }
