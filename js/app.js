@@ -47,10 +47,11 @@ const poll = {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
-            const section = this.options;
-            const p = document.createElement('p');
-            p.textContent = 'GAME OVER';
-            section.appendChild(p);
+            
+            playAgain();
+
+            const p = document.querySelector('p');
+            p.addEventListener('click', reStart);
 
             this.drawChart();
 
@@ -80,7 +81,9 @@ const poll = {
             options: {
                 scales: {
                     yAxes: [{
+                            // stacked: true
                         ticks: {
+                            // stacked: true
                             beginAtZero:true
                         }
                     }]
@@ -157,6 +160,19 @@ function clickHandler() {
     console.log(poll.pollsClicked);
     poll.clear();
     poll.next();
+};
+
+function playAgain () {
+    const section = poll.options;
+    const p = document.createElement('p');
+    p.textContent = 'Play Again';
+    section.appendChild(p);
+};
+
+function reStart () {
+    const p = document.querySelector('p');
+    p.remove();
+    poll.start();
 };
 
 function Product (name, filePath, timesClicked) {
