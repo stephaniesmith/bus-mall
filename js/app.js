@@ -3,6 +3,7 @@
 const poll = {
     product: [],
     pollsClicked: 0,
+    options: document.getElementById('row'),
     start: function () {
 
         this.product.push (
@@ -30,42 +31,52 @@ const poll = {
 
         this.showProduct();
 
-        const options = document.getElementById('row');
-        options.addEventListener('click', function () {
-            console.log('game was clicked', event.target);
-
-            const url = event.target.src;
-            for(let i = 0; i < poll.product.length; i++) {
-                const selectedProduct = poll.product[i];
-
-                console.log('index of url', url.indexOf(selectedProduct.filePath));
-                const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
-
-                if (endOfUrl === selectedProduct.filePath) {
-                    selectedProduct.timesClicked++;
-                    console.table(selectedProduct);
-                }
-            }
-            poll.pollsClicked++;
-            console.log(poll.pollsClicked);
-            poll.clear();
-            poll.next();
-        });
+        this.options.addEventListener('click', clickHandler);
     },
 
     next: function () {
         if (this.pollsClicked < 25) {
             this.showProduct();
         } else {
-            const count = this.score();
-            const names = this.name();
-            const otherSection = document.getElementById('votes');
-            for (let i = 0; i < count.length; i++) {
-                const p = document.createElement('p');
-                p.textContent = `${count[i]} of votes for ${names[i]}`;
-                otherSection.appendChild(p);
-            }
+            this.options.removeEventListener('click', clickHandler);
+            const section = this.options;
+            const p = document.createElement('p');
+            p.textContent = 'GAME OVER';
+            section.appendChild(p);
+
+            this.drawChart();
         }
+    },
+
+    drawChart: function () {
+        const chartCanvas = document.getElementById('chart');
+        const chartCtx = chartCanvas.getContext('2d');
+
+        const names = name();
+        const clicks = score();
+
+        console.log('names: ', names);
+        console.log('clicks: ', clicks);
+
+        const chart = new Chart(chartCtx, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [{
+                    label: 'number of times picked',
+                    data: clicks
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
     },
 
     getRandomProduct: function () {
@@ -96,26 +107,46 @@ const poll = {
         for (let i = 0; i < allDiv.length; i ++) {
             allDiv[i].textContent = '';
         }
-    },
-
-    score: function () {
-        const count = [];
-        for (let i = 0; i < this.product.length; i++) {
-            const item = this.product[i];
-            count.push(item.timesClicked);
-        }
-        return count;
-    },
-
-    name: function () {
-        const names = [];
-        for (let i = 0; i < this.product.length; i++) {
-            const item = this.product[i];
-            names.push(item.name);
-        }
-        console.log(names);
-        return names;
     }
+};
+
+function score () {
+    const count = [];
+    for (let i = 0; i < poll.product.length; i++) {
+        const item = poll.product[i];
+        count.push(item.timesClicked);
+    }
+    return count;
+};
+
+function name () {
+    const names = [];
+    for (let i = 0; i < poll.product.length; i++) {
+        const item = poll.product[i];
+        names.push(item.name);
+    }
+    return names;
+};
+
+function clickHandler() {
+    console.log('game was clicked', event.target);
+
+    const url = event.target.src;
+    for(let i = 0; i < poll.product.length; i++) {
+        const selectedProduct = poll.product[i];
+
+        console.log('index of url', url.indexOf(selectedProduct.filePath));
+        const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
+
+        if (endOfUrl === selectedProduct.filePath) {
+            selectedProduct.timesClicked++;
+            console.table(selectedProduct);
+        }
+    }
+    poll.pollsClicked++;
+    console.log(poll.pollsClicked);
+    poll.clear();
+    poll.next();
 };
 
 function Product (name, filePath, timesShown, timesClicked) {
