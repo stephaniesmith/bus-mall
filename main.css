@@ -1,7 +1,16 @@
-/* section {
-    display: inline-block;
-    width: 100%;
-} */
+main {
+    display: block;
+    height: 100%;
+}
+
+#row {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    margin: auto auto;
+}
 
 div {
     width: fit-content;
@@ -9,8 +18,6 @@ div {
 }
 
 img {
-    display: block;
-    width: 30%;
-    margin: 5px;
-    float: left;
+    height: 250px;
+    margin: 10px;
 }
