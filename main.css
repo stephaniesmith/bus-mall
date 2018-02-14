@@ -36,3 +36,11 @@ img {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+.chart-holder {
+    margin: 50px 100px;
+}
+
+p {
+    font-family: 'Comfortaa', cursive;
+}
