@@ -4,5 +4,7 @@ form.addEventListener('submit', function () {
 
     const img = this.img.value;
     const rounds = this.rounds.value;
-    console.log(img, rounds);
+
+    const settings = {img: img, rounds: rounds};
+    localStorage.setItem('setting', JSON.stringify(settings));
 });
