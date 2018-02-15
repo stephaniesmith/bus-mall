@@ -39,6 +39,7 @@ img {
 
 .chart-holder {
     margin: 50px 100px;
+    position: relative;
 }
 
 p {

@@ -6,28 +6,36 @@ const poll = {
     options: document.getElementById('row'),
     start: function () {
 
-        this.product.push (
-            new Product ('bag', 'img/bag.jpg'),
-            new Product ('banana', 'img/banana.jpg'),
-            new Product ('bathroom', 'img/bathroom.jpg'),
-            new Product ('boots', 'img/boots.jpg'),
-            new Product ('brefast', 'img/breakfast.jpg'),
-            new Product ('bubblegum', 'img/bubblegum.jpg'),
-            new Product ('chair', 'img/chair.jpg'),
-            new Product ('cthulhu', 'img/cthulhu.jpg'),
-            new Product ('dog-duck', 'img/dog-duck.jpg'),
-            new Product ('dragon', 'img/dragon.jpg'),
-            new Product ('pen', 'img/pen.jpg'),
-            new Product ('pet-sweep', 'img/pet-sweep.jpg'),
-            new Product ('scissors', 'img/scissors.jpg'),
-            new Product ('shark', 'img/shark.jpg'),
-            new Product ('sweep', 'img/sweep.png'),
-            new Product ('tauntaun', 'img/tauntaun.jpg'),
-            new Product ('unicorn', 'img/unicorn.jpg'),
-            new Product ('usb', 'img/usb.gif'),
-            new Product ('water-can', 'img/water-can.jpg'),
-            new Product ('wine-glass', 'img/wine-glass.jpg')
-        );
+        if (localStorage.getItem('data')) {
+            const storedData = JSON.parse(localStorage.getItem('data'));
+            for (let i = 0; i < storedData.length; i++) {
+                const products = new Product(storedData[i].name, storedData[i].filePath, storedData[i].timesClicked);
+                this.product.push(products);
+            }
+        } else {
+            this.product.push (
+                new Product ('bag', 'img/bag.jpg', 0),
+                new Product ('banana', 'img/banana.jpg', 0),
+                new Product ('bathroom', 'img/bathroom.jpg', 0),
+                new Product ('boots', 'img/boots.jpg', 0),
+                new Product ('brefast', 'img/breakfast.jpg', 0),
+                new Product ('bubblegum', 'img/bubblegum.jpg', 0),
+                new Product ('chair', 'img/chair.jpg', 0),
+                new Product ('cthulhu', 'img/cthulhu.jpg', 0),
+                new Product ('dog-duck', 'img/dog-duck.jpg', 0),
+                new Product ('dragon', 'img/dragon.jpg', 0),
+                new Product ('pen', 'img/pen.jpg', 0),
+                new Product ('pet-sweep', 'img/pet-sweep.jpg', 0),
+                new Product ('scissors', 'img/scissors.jpg', 0),
+                new Product ('shark', 'img/shark.jpg', 0),
+                new Product ('sweep', 'img/sweep.png', 0),
+                new Product ('tauntaun', 'img/tauntaun.jpg', 0),
+                new Product ('unicorn', 'img/unicorn.jpg', 0),
+                new Product ('usb', 'img/usb.gif', 0),
+                new Product ('water-can', 'img/water-can.jpg', 0),
+                new Product ('wine-glass', 'img/wine-glass.jpg', 0)
+            );
+        }
 
         this.showProduct();
 
@@ -39,12 +47,14 @@ const poll = {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
-            const section = this.options;
-            const p = document.createElement('p');
-            p.textContent = 'GAME OVER';
-            section.appendChild(p);
+            playAgain();
+
+            const p = document.querySelector('p');
+            p.addEventListener('click', reStart);
 
             this.drawChart();
+
+            localStorage.setItem('data', JSON.stringify(this.product));
         }
     },
 
@@ -54,6 +64,24 @@ const poll = {
 
         const names = name();
         const clicks = score();
+
+
+        // const count = [];
+        // const names = [];
+
+        // if (localStorage.getItem('data')) {
+        //     const storedData = JSON.parse(localStorage.getItem('data'));
+        //     for (let i = 0; i < storedData.length; i++) {
+        //         count.push(this.product[i].timesClicked);
+        //         names.push(this.product[i].name);
+        //     }
+        // } else {
+        //     for (let i = 0; i < this.product.length; i++) {
+        //         count.push(this.product[i].timesClicked);
+        //         names.push(this.product[i].name);
+        //     }
+        // };
+
 
         console.log('names: ', names);
         console.log('clicks: ', clicks);
@@ -70,7 +98,9 @@ const poll = {
             options: {
                 scales: {
                     yAxes: [{
+
                         ticks: {
+
                             beginAtZero:true
                         }
                     }]
@@ -107,7 +137,7 @@ const poll = {
         for (let i = 0; i < allDiv.length; i ++) {
             allDiv[i].textContent = '';
         }
-    }
+    },
 };
 
 function score () {
@@ -149,11 +179,24 @@ function clickHandler() {
     poll.next();
 };
 
-function Product (name, filePath, timesShown, timesClicked) {
+function playAgain () {
+    const section = poll.options;
+    const p = document.createElement('p');
+    p.textContent = 'Play Again';
+    section.appendChild(p);
+};
+
+function reStart () {
+    const p = document.querySelector('p');
+    p.remove();
+    poll.pollsClicked = 0;
+    poll.start();
+};
+
+function Product (name, filePath, timesClicked) {
     this.name = name;
     this.filePath = filePath;
-    this.timesShown = 0;
-    this.timesClicked = 0;
+    this.timesClicked = timesClicked;
 };
 
 Product.prototype.render = function () {
