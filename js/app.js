@@ -190,6 +190,7 @@ function reStart () {
     const p = document.querySelector('p');
     p.remove();
     poll.pollsClicked = 0;
+    poll.product.length = 0;
     poll.start();
 };
 
