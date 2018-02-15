@@ -47,7 +47,6 @@ const poll = {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
-            
             playAgain();
 
             const p = document.querySelector('p');
@@ -66,6 +65,24 @@ const poll = {
         const names = name();
         const clicks = score();
 
+
+        // const count = [];
+        // const names = [];
+
+        // if (localStorage.getItem('data')) {
+        //     const storedData = JSON.parse(localStorage.getItem('data'));
+        //     for (let i = 0; i < storedData.length; i++) {
+        //         count.push(this.product[i].timesClicked);
+        //         names.push(this.product[i].name);
+        //     }
+        // } else {
+        //     for (let i = 0; i < this.product.length; i++) {
+        //         count.push(this.product[i].timesClicked);
+        //         names.push(this.product[i].name);
+        //     }
+        // };
+
+
         console.log('names: ', names);
         console.log('clicks: ', clicks);
 
@@ -81,9 +98,9 @@ const poll = {
             options: {
                 scales: {
                     yAxes: [{
-                            // stacked: true
+
                         ticks: {
-                            // stacked: true
+
                             beginAtZero:true
                         }
                     }]
@@ -120,7 +137,7 @@ const poll = {
         for (let i = 0; i < allDiv.length; i ++) {
             allDiv[i].textContent = '';
         }
-    }
+    },
 };
 
 function score () {
