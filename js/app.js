@@ -4,8 +4,18 @@ const poll = {
     product: [],
     pollsClicked: 0,
     options: document.getElementById('row'),
+
+
     start: function () {
 
+        this.getProduct();
+
+        this.showProduct();
+
+        this.options.addEventListener('click', clickHandler);
+    },
+
+    getProduct: function () {
         if (localStorage.getItem('data')) {
             const storedData = JSON.parse(localStorage.getItem('data'));
             for (let i = 0; i < storedData.length; i++) {
@@ -37,9 +47,29 @@ const poll = {
             );
         }
 
-        this.showProduct();
+    },
 
-        this.options.addEventListener('click', clickHandler);
+    showProduct: function () {
+        const img = this.getRandomProduct();
+        const allDiv = document.querySelectorAll('div.item');
+
+        for (let i = 0; i < allDiv.length; i++) {
+            allDiv[i].appendChild(img[i].render());
+        }
+    },
+
+    getRandomProduct: function () {
+        const selectedProduct = [];
+        while (selectedProduct.length < 3) {
+            const min = Math.ceil(0);
+            const max = Math.floor(19);
+            const number = Math.floor(Math.random() * (max - min + 1)) + min;
+            const item = this.product[number];
+            if (selectedProduct.includes(item)) continue;
+            selectedProduct.push(item);
+        }
+        console.log(selectedProduct);
+        return selectedProduct;
     },
 
     next: function () {
@@ -107,29 +137,6 @@ const poll = {
                 }
             }
         });
-    },
-
-    getRandomProduct: function () {
-        const selectedProduct = [];
-        while (selectedProduct.length < 3) {
-            const min = Math.ceil(0);
-            const max = Math.floor(19);
-            const number = Math.floor(Math.random() * (max - min + 1)) + min;
-            const item = this.product[number];
-            if (selectedProduct.includes(item)) continue;
-            selectedProduct.push(item);
-        }
-        console.log(selectedProduct);
-        return selectedProduct;
-    },
-
-    showProduct: function () {
-        const img = this.getRandomProduct();
-        const allDiv = document.querySelectorAll('div.item');
-
-        for (let i = 0; i < allDiv.length; i++) {
-            allDiv[i].appendChild(img[i].render());
-        }
     },
 
     clear: function () {
