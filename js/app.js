@@ -1,11 +1,35 @@
 'use strict';
-
 const poll = {
     product: [],
     pollsClicked: 0,
+    img: 3,
+    rounds: 25,
     options: document.getElementById('row'),
-    start: function () {
 
+
+    start: function () {
+        this.getSettings();
+
+        this.getProduct();
+
+        this.showProduct();
+
+        this.options.addEventListener('click', clickHandler);
+
+    },
+
+    getSettings: function () {
+        if (localStorage.getItem('settings')) {
+            const savedSettings = JSON.parse(localStorage.getItem('settings'));
+            console.log('!!!!!!!!! ', savedSettings);
+
+            this.img = parseInt(savedSettings.img);
+            this.rounds = parseInt(savedSettings.rounds);
+            console.log(this);
+        }
+    },
+
+    getProduct: function () {
         if (localStorage.getItem('data')) {
             const storedData = JSON.parse(localStorage.getItem('data'));
             for (let i = 0; i < storedData.length; i++) {
@@ -36,21 +60,46 @@ const poll = {
                 new Product ('wine-glass', 'img/wine-glass.jpg', 0)
             );
         }
+    },
 
-        this.showProduct();
+    showProduct: function () {
+        const randProd = this.getRandomProduct();
+        // const allDiv = document.querySelectorAll('div.item');
+        const section = document.getElementById('row');
 
-        this.options.addEventListener('click', clickHandler);
+        for (let i = 0; i < randProd.length; i++) {
+            const div = document.createElement('div');
+            div.id = 'item';
+            section.appendChild(div);
+            div.appendChild(randProd[i].render());
+        }
+
+        console.log('after start: ', poll.product);
+    },
+
+    getRandomProduct: function () {
+        const selectedProduct = [];
+        while (selectedProduct.length < this.img) {
+            const min = Math.ceil(0);
+            const max = Math.floor(19);
+            const number = Math.floor(Math.random() * (max - min + 1)) + min;
+            const item = this.product[number];
+            if (selectedProduct.includes(item)) continue;
+            selectedProduct.push(item);
+        }
+        // console.log(selectedProduct);
+        return selectedProduct;
     },
 
     next: function () {
-        if (this.pollsClicked < 25) {
+        if (this.pollsClicked < this.rounds) {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
             playAgain();
 
-            const p = document.querySelector('p');
-            p.addEventListener('click', reStart);
+            // const p = document.querySelector('p');
+            this.options.addEventListener('click', reStart);
 
             this.drawChart();
 
@@ -64,24 +113,6 @@ const poll = {
 
         const names = name();
         const clicks = score();
-
-
-        // const count = [];
-        // const names = [];
-
-        // if (localStorage.getItem('data')) {
-        //     const storedData = JSON.parse(localStorage.getItem('data'));
-        //     for (let i = 0; i < storedData.length; i++) {
-        //         count.push(this.product[i].timesClicked);
-        //         names.push(this.product[i].name);
-        //     }
-        // } else {
-        //     for (let i = 0; i < this.product.length; i++) {
-        //         count.push(this.product[i].timesClicked);
-        //         names.push(this.product[i].name);
-        //     }
-        // };
-
 
         console.log('names: ', names);
         console.log('clicks: ', clicks);
@@ -109,34 +140,11 @@ const poll = {
         });
     },
 
-    getRandomProduct: function () {
-        const selectedProduct = [];
-        while (selectedProduct.length < 3) {
-            const min = Math.ceil(0);
-            const max = Math.floor(19);
-            const number = Math.floor(Math.random() * (max - min + 1)) + min;
-            const item = this.product[number];
-            if (selectedProduct.includes(item)) continue;
-            selectedProduct.push(item);
-        }
-        console.log(selectedProduct);
-        return selectedProduct;
-    },
-
-    showProduct: function () {
-        const img = this.getRandomProduct();
-        const allDiv = document.querySelectorAll('div.item');
-
-        for (let i = 0; i < allDiv.length; i++) {
-            allDiv[i].appendChild(img[i].render());
-        }
-    },
-
     clear: function () {
-        const allDiv = document.querySelectorAll('div.item');
-        for (let i = 0; i < allDiv.length; i ++) {
-            allDiv[i].textContent = '';
-        }
+        for(let i = 0; i < this.img; i++) {
+            const div = document.getElementById ('item');
+            div.remove();
+        };
     },
 };
 
@@ -165,12 +173,11 @@ function clickHandler() {
     for(let i = 0; i < poll.product.length; i++) {
         const selectedProduct = poll.product[i];
 
-        console.log('index of url', url.indexOf(selectedProduct.filePath));
+        // console.log('index of url', url.indexOf(selectedProduct.filePath));
         const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
 
         if (endOfUrl === selectedProduct.filePath) {
             selectedProduct.timesClicked++;
-            console.table(selectedProduct);
         }
     }
     poll.pollsClicked++;
@@ -182,14 +189,17 @@ function clickHandler() {
 function playAgain () {
     const section = poll.options;
     const p = document.createElement('p');
+    p.id = 'playAgain';
     p.textContent = 'Play Again';
     section.appendChild(p);
 };
 
 function reStart () {
-    const p = document.querySelector('p');
+    const p = document.getElementById('playAgain');
     p.remove();
     poll.pollsClicked = 0;
+    poll.product.length = 0;
+    poll.options.removeEventListener('click', reStart);
     poll.start();
 };
 
@@ -206,4 +216,5 @@ Product.prototype.render = function () {
     return ele;
 };
 
+console.log('before start: ', poll.product);
 poll.start();
