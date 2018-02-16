@@ -1,5 +1,4 @@
 'use strict';
-
 const poll = {
     product: [],
     pollsClicked: 0,
@@ -13,6 +12,7 @@ const poll = {
         this.showProduct();
 
         this.options.addEventListener('click', clickHandler);
+
     },
 
     getProduct: function () {
@@ -46,16 +46,21 @@ const poll = {
                 new Product ('wine-glass', 'img/wine-glass.jpg', 0)
             );
         }
-
     },
 
     showProduct: function () {
         const img = this.getRandomProduct();
-        const allDiv = document.querySelectorAll('div.item');
+        // const allDiv = document.querySelectorAll('div.item');
+        const section = document.getElementById('row');
 
-        for (let i = 0; i < allDiv.length; i++) {
-            allDiv[i].appendChild(img[i].render());
+        for (let i = 0; i < img.length; i++) {
+            const div = document.createElement('div');
+            div.id = 'item';
+            section.appendChild(div);
+            div.appendChild(img[i].render());
         }
+
+        console.log('after start: ', poll.product);
     },
 
     getRandomProduct: function () {
@@ -68,7 +73,7 @@ const poll = {
             if (selectedProduct.includes(item)) continue;
             selectedProduct.push(item);
         }
-        console.log(selectedProduct);
+        // console.log(selectedProduct);
         return selectedProduct;
     },
 
@@ -79,8 +84,8 @@ const poll = {
             this.options.removeEventListener('click', clickHandler);
             playAgain();
 
-            const p = document.querySelector('p');
-            p.addEventListener('click', reStart);
+            // const p = document.querySelector('p');
+            this.options.addEventListener('click', reStart);
 
             this.drawChart();
 
@@ -94,24 +99,6 @@ const poll = {
 
         const names = name();
         const clicks = score();
-
-
-        // const count = [];
-        // const names = [];
-
-        // if (localStorage.getItem('data')) {
-        //     const storedData = JSON.parse(localStorage.getItem('data'));
-        //     for (let i = 0; i < storedData.length; i++) {
-        //         count.push(this.product[i].timesClicked);
-        //         names.push(this.product[i].name);
-        //     }
-        // } else {
-        //     for (let i = 0; i < this.product.length; i++) {
-        //         count.push(this.product[i].timesClicked);
-        //         names.push(this.product[i].name);
-        //     }
-        // };
-
 
         console.log('names: ', names);
         console.log('clicks: ', clicks);
@@ -140,10 +127,10 @@ const poll = {
     },
 
     clear: function () {
-        const allDiv = document.querySelectorAll('div.item');
-        for (let i = 0; i < allDiv.length; i ++) {
-            allDiv[i].textContent = '';
-        }
+        for(let i = 0; i < 3; i++) {
+            const div = document.getElementById ('item');
+            div.remove();
+        };
     },
 };
 
@@ -172,12 +159,11 @@ function clickHandler() {
     for(let i = 0; i < poll.product.length; i++) {
         const selectedProduct = poll.product[i];
 
-        console.log('index of url', url.indexOf(selectedProduct.filePath));
+        // console.log('index of url', url.indexOf(selectedProduct.filePath));
         const endOfUrl = url.slice(url.indexOf(selectedProduct.filePath), url.length);
 
         if (endOfUrl === selectedProduct.filePath) {
             selectedProduct.timesClicked++;
-            console.table(selectedProduct);
         }
     }
     poll.pollsClicked++;
@@ -189,15 +175,17 @@ function clickHandler() {
 function playAgain () {
     const section = poll.options;
     const p = document.createElement('p');
+    p.id = 'playAgain';
     p.textContent = 'Play Again';
     section.appendChild(p);
 };
 
 function reStart () {
-    const p = document.querySelector('p');
+    const p = document.getElementById('playAgain');
     p.remove();
     poll.pollsClicked = 0;
     poll.product.length = 0;
+    poll.options.removeEventListener('click', reStart);
     poll.start();
 };
 
@@ -214,4 +202,5 @@ Product.prototype.render = function () {
     return ele;
 };
 
+console.log('before start: ', poll.product);
 poll.start();
