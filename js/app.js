@@ -2,10 +2,13 @@
 const poll = {
     product: [],
     pollsClicked: 0,
+    img: 3,
+    rounds: 25,
     options: document.getElementById('row'),
 
 
     start: function () {
+        this.getSettings();
 
         this.getProduct();
 
@@ -13,6 +16,17 @@ const poll = {
 
         this.options.addEventListener('click', clickHandler);
 
+    },
+
+    getSettings: function () {
+        if (localStorage.getItem('settings')) {
+            const savedSettings = JSON.parse(localStorage.getItem('settings'));
+            console.log('!!!!!!!!! ', savedSettings);
+
+            this.img = parseInt(savedSettings.img);
+            this.rounds = parseInt(savedSettings.rounds);
+            console.log(this);
+        }
     },
 
     getProduct: function () {
@@ -49,15 +63,15 @@ const poll = {
     },
 
     showProduct: function () {
-        const img = this.getRandomProduct();
+        const randProd = this.getRandomProduct();
         // const allDiv = document.querySelectorAll('div.item');
         const section = document.getElementById('row');
 
-        for (let i = 0; i < img.length; i++) {
+        for (let i = 0; i < randProd.length; i++) {
             const div = document.createElement('div');
             div.id = 'item';
             section.appendChild(div);
-            div.appendChild(img[i].render());
+            div.appendChild(randProd[i].render());
         }
 
         console.log('after start: ', poll.product);
@@ -65,7 +79,7 @@ const poll = {
 
     getRandomProduct: function () {
         const selectedProduct = [];
-        while (selectedProduct.length < 3) {
+        while (selectedProduct.length < this.img) {
             const min = Math.ceil(0);
             const max = Math.floor(19);
             const number = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -78,7 +92,7 @@ const poll = {
     },
 
     next: function () {
-        if (this.pollsClicked < 25) {
+        if (this.pollsClicked < this.rounds) {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
@@ -127,7 +141,7 @@ const poll = {
     },
 
     clear: function () {
-        for(let i = 0; i < 3; i++) {
+        for(let i = 0; i < this.img; i++) {
             const div = document.getElementById ('item');
             div.remove();
         };
