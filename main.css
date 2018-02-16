@@ -50,3 +50,8 @@ img {
 p {
     font-family: 'Comfortaa', cursive;
 }
+
+footer {
+    background: rgba(87, 87, 87, 0.281);
+    height: 100px;
+}
