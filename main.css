@@ -47,16 +47,25 @@ img {
     margin-bottom: 50px;
 }
 
-.chart-holder {
+#chart-holder.show {
     margin: 50px 100px;
     position: relative;
 }
+
+#chart-holder.hidden {
+    display: none;
+}
+
 
 p {
     font-family: 'Comfortaa', cursive;
 }
 
 footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background: rgba(87, 87, 87, 0.281);
     height: 100px;
 }

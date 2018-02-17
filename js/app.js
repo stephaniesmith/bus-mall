@@ -96,7 +96,7 @@ const poll = {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
-            playAgain();
+            this.playAgain();
 
             // const p = document.querySelector('p');
             this.options.addEventListener('click', reStart);
@@ -108,14 +108,20 @@ const poll = {
     },
 
     drawChart: function () {
+        const showClass = document.getElementById('chart-holder');
+        showClass.setAttribute('class', 'show');
+
         const chartCanvas = document.getElementById('chart');
         const chartCtx = chartCanvas.getContext('2d');
 
-        const names = name();
-        const clicks = score();
+        const names = [];
+        const clicks = [];
 
-        console.log('names: ', names);
-        console.log('clicks: ', clicks);
+        for (let i = 0; i < this.product.length; i++) {
+            const item = this.product[i];
+            clicks.push(item.timesClicked);
+            names.push(item.name);
+        }
 
         const chart = new Chart(chartCtx, {
             type: 'bar',
@@ -146,25 +152,24 @@ const poll = {
             div.remove();
         };
     },
+
+    playAgain: function () {
+        const section = this.options;
+        const p = document.createElement('p');
+        p.id = 'playAgain';
+        p.textContent = 'Play Again';
+        section.appendChild(p);
+    }
 };
 
-function score () {
-    const count = [];
-    for (let i = 0; i < poll.product.length; i++) {
-        const item = poll.product[i];
-        count.push(item.timesClicked);
-    }
-    return count;
-};
+const reset = document.getElementById('reset');
+reset.addEventListener('click', function() {
+    localStorage.clear();
+    poll.product.length = 0;
 
-function name () {
-    const names = [];
-    for (let i = 0; i < poll.product.length; i++) {
-        const item = poll.product[i];
-        names.push(item.name);
-    }
-    return names;
-};
+    const chart = document.getElementById('chart-holder');
+    chart.setAttribute('class', 'hidden');
+});
 
 function clickHandler() {
     console.log('game was clicked', event.target);
@@ -184,14 +189,6 @@ function clickHandler() {
     console.log(poll.pollsClicked);
     poll.clear();
     poll.next();
-};
-
-function playAgain () {
-    const section = poll.options;
-    const p = document.createElement('p');
-    p.id = 'playAgain';
-    p.textContent = 'Play Again';
-    section.appendChild(p);
 };
 
 function reStart () {
@@ -216,5 +213,4 @@ Product.prototype.render = function () {
     return ele;
 };
 
-console.log('before start: ', poll.product);
 poll.start();
