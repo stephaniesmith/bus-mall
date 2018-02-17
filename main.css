@@ -18,6 +18,11 @@ main {
     height: fit-content;
 }
 
+form {
+    height: 100%;
+    margin: 50px 100px;
+}
+
 #row {
     display: flex;
     flex-flow: row;

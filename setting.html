@@ -4,21 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <title>Settings</title>
 </head>
 <body>
-    <form id="form">
-        <fieldset>
-            <legend>Updating Poll</legend>
-            <div>
-                <label for="img">Number of Images</label>
-                <input type="number" name="img" min="2" max="5">
-                <label for="rounds">Number of Rounds</label>
-                <input type="number" name="rounds" min="5" max="20">
-            </div>
-            <button type="submit">Save</button>
-        </fieldset>
-    </form>
+    <header>
+        <img src="img/bus.png" alt="trimet buss">
+    </header>
+    <main>
+        <form id="form">
+            <fieldset>
+                <legend>Updating Poll</legend>
+                <div>
+                    <label for="img">Number of Images</label>
+                    <input type="number" name="img" min="2" max="5">
+                    <label for="rounds">Number of Rounds</label>
+                    <input type="number" name="rounds" min="5" max="20">
+                </div>
+                <button type="submit">Save</button>
+            </fieldset>
+        </form>
+    </main>
+    <footer>
+        <button type="button">Reset Graph</button>
+        <a href="index.html">Home Page</a>
+    </footer>
     <script src="js/settings.js"></script>
 </body>
 </html>
