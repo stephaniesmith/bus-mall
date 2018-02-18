@@ -162,14 +162,14 @@ const poll = {
     }
 };
 
-const reset = document.getElementById('reset');
-reset.addEventListener('click', function() {
-    localStorage.clear();
-    poll.product.length = 0;
+// const reset = document.getElementById('reset');
+// reset.addEventListener('click', function() {
+//     localStorage.clear();
+//     poll.product.length = 0;
 
-    const chart = document.getElementById('chart-holder');
-    chart.setAttribute('class', 'hidden');
-});
+    // const chart = document.getElementById('chart-holder');
+    // chart.setAttribute('class', 'hidden');
+// });
 
 function clickHandler() {
     console.log('game was clicked', event.target);

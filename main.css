@@ -47,6 +47,10 @@ img {
     margin-bottom: 50px;
 }
 
+#bus:hover {
+    transform: scale(1.02);
+}
+
 #chart-holder.show {
     margin: 50px 100px;
     position: relative;
