@@ -40,6 +40,14 @@ fieldset {
     background-color: rgba(87, 87, 87, 0.281);
 }
 
+#take-poll {
+    padding: 10px;
+    text-align: center;
+    height: 100%;
+    margin: 50px 100px 25px 100px;
+    background-color: rgba(87, 87, 87, 0.281);
+}
+
 div {
     width: fit-content;
     height: fit-content;
@@ -123,5 +131,17 @@ footer div {
     font-weight: bold;
     right: 25px;
     top: 35px;
+    border-radius: 5px;
+}
+
+#poll {
+    /* position: absolute; */
+    text-decoration: none;
+    background-color: rgb(233, 105, 0);
+    padding: 7px 10px;
+    color: white;
+    font-weight: bold;
+    /* right: 25px;
+    top: 35px; */
     border-radius: 5px;
 }
