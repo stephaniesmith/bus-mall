@@ -136,7 +136,7 @@ footer div {
     margin: 25px auto 15px auto;
 }
 
-#poll {
+#poll, button {
     text-decoration: none;
     background-color: rgb(233, 105, 0);
     padding: 7px 10px;
