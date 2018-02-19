@@ -1,0 +1,164 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 50px 100px;
+    background-color: rgba(87, 87, 87, 0.281);
+    min-width: fit-content;
+}
+
+main {
+    display: block;
+    height: fit-content;
+}
+
+form {
+    height: 100%;
+    margin: 50px 100px;
+    background-color: rgba(87, 87, 87, 0.281);
+    padding: 20px;
+    min-width: fit-content;
+}
+
+fieldset {
+    width: 250px;
+    margin: auto;
+}
+
+#row {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    margin: 50px 100px 25px 100px;
+    background-color: rgba(87, 87, 87, 0.281);
+}
+
+#take-poll {
+    padding: 10px 25px;
+    text-align: center;
+    height: 100%;
+    margin: 50px 100px 25px 100px;
+    background-color: rgba(87, 87, 87, 0.281);
+    min-width: fit-content;
+}
+
+#item {
+    width: fit-content;
+    height: fit-content;
+    max-width: 200px;
+    overflow: hidden;
+}
+
+img {
+    height: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#bus:hover {
+    transform: scale(1.02);
+}
+
+#chart-holder.show {
+    margin: 50px 100px;
+    position: relative;
+}
+
+#chart-holder.hidden {
+    display: none;
+}
+
+p {
+    font-family: 'Comfortaa', cursive;
+}
+
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -100px;
+    min-width: 100%;
+}
+
+.push {
+    height: 100px;
+}
+
+footer {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(87, 87, 87, 0.281);
+    height: 100px;
+}
+
+#item:hover {
+    transform: scale(1.05);
+}
+
+#tri {
+    width: 50px;
+    height: auto;
+    margin: 25px auto auto 25px;
+    display: inline;
+}
+
+label, input {
+    margin: 5px;
+}
+
+button {
+    margin: 10px 10px 0px 10px;
+}
+
+footer div {
+    display: inline;
+}
+
+#set {
+    position: absolute;
+    text-decoration: none;
+    background-color: rgb(233, 105, 0);
+    padding: 7px 10px;
+    color: white;
+    font-weight: bold;
+    right: 25px;
+    top: 35px;
+    border-radius: 5px;
+}
+
+#con-poll {
+    min-width: 100%;
+    margin: 25px auto 15px auto;
+}
+
+#poll, button {
+    text-decoration: none;
+    background-color: rgb(233, 105, 0);
+    padding: 7px 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 10px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 130%;
+    background-color: rgb(233, 105, 0);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    margin-right: 25px;
+}

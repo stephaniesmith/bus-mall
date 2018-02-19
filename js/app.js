@@ -21,11 +21,9 @@ const poll = {
     getSettings: function () {
         if (localStorage.getItem('settings')) {
             const savedSettings = JSON.parse(localStorage.getItem('settings'));
-            console.log('!!!!!!!!! ', savedSettings);
 
             this.img = parseInt(savedSettings.img);
             this.rounds = parseInt(savedSettings.rounds);
-            console.log(this);
         }
     },
 
@@ -64,7 +62,6 @@ const poll = {
 
     showProduct: function () {
         const randProd = this.getRandomProduct();
-        // const allDiv = document.querySelectorAll('div.item');
         const section = document.getElementById('row');
 
         for (let i = 0; i < randProd.length; i++) {
@@ -96,7 +93,7 @@ const poll = {
             this.showProduct();
         } else {
             this.options.removeEventListener('click', clickHandler);
-            playAgain();
+            this.playAgain();
 
             // const p = document.querySelector('p');
             this.options.addEventListener('click', reStart);
@@ -108,14 +105,20 @@ const poll = {
     },
 
     drawChart: function () {
+        const showClass = document.getElementById('chart-holder');
+        showClass.setAttribute('class', 'show');
+
         const chartCanvas = document.getElementById('chart');
         const chartCtx = chartCanvas.getContext('2d');
 
-        const names = name();
-        const clicks = score();
+        const names = [];
+        const clicks = [];
 
-        console.log('names: ', names);
-        console.log('clicks: ', clicks);
+        for (let i = 0; i < this.product.length; i++) {
+            const item = this.product[i];
+            clicks.push(item.timesClicked);
+            names.push(item.name);
+        }
 
         const chart = new Chart(chartCtx, {
             type: 'bar',
@@ -146,24 +149,14 @@ const poll = {
             div.remove();
         };
     },
-};
 
-function score () {
-    const count = [];
-    for (let i = 0; i < poll.product.length; i++) {
-        const item = poll.product[i];
-        count.push(item.timesClicked);
+    playAgain: function () {
+        const section = this.options;
+        const p = document.createElement('p');
+        p.id = 'playAgain';
+        p.textContent = 'Play Again';
+        section.appendChild(p);
     }
-    return count;
-};
-
-function name () {
-    const names = [];
-    for (let i = 0; i < poll.product.length; i++) {
-        const item = poll.product[i];
-        names.push(item.name);
-    }
-    return names;
 };
 
 function clickHandler() {
@@ -184,14 +177,6 @@ function clickHandler() {
     console.log(poll.pollsClicked);
     poll.clear();
     poll.next();
-};
-
-function playAgain () {
-    const section = poll.options;
-    const p = document.createElement('p');
-    p.id = 'playAgain';
-    p.textContent = 'Play Again';
-    section.appendChild(p);
 };
 
 function reStart () {
@@ -216,5 +201,4 @@ Product.prototype.render = function () {
     return ele;
 };
 
-console.log('before start: ', poll.product);
 poll.start();

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawn by Useddenim  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="70 0 46.875 46.875">
+<title>TriMet logo simplified</title>
+<circle cx="93.75" cy="23.5" r="22.5" stroke="#e0651f" stroke-width="0.5" fill="#e0651f" />
+<g stroke="#fff" stroke-width="2.75" fill="none">
+ <circle cx="93.75" cy="23.5" r="15.75" />
+ <circle cx="93.75" cy="23.5" r="5.25" />
+ <path d="M 93.75,7.75 A 10.5 10.5 1 0 0 93.75,28.75" />
+ <path d="M 107.39,31.375 A 10.5 10.5 1 0 0 89.2,20.875" />
+ <path d="M 80.11,31.375 A 10.5 10.5 1 0 0 98.3,20.875" />
+</g>
+</svg>
