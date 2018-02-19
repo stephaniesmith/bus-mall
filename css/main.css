@@ -8,7 +8,6 @@ header {
     flex-flow: row;
     align-items: center;
     justify-content: space-around;
-    /* height: 100%; */
     margin: 50px 100px;
     background-color: rgba(87, 87, 87, 0.281);
 }
@@ -48,7 +47,7 @@ fieldset {
     background-color: rgba(87, 87, 87, 0.281);
 }
 
-div {
+#item {
     width: fit-content;
     height: fit-content;
     max-width: 200px;
@@ -57,7 +56,6 @@ div {
 
 img {
     height: 200px;
-    /* border: 1px solid black; */
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -74,7 +72,6 @@ img {
 #chart-holder.hidden {
     display: none;
 }
-
 
 p {
     font-family: 'Comfortaa', cursive;
@@ -134,14 +131,16 @@ footer div {
     border-radius: 5px;
 }
 
+#con-poll {
+    min-width: 100%;
+    margin: 25px auto 15px auto;
+}
+
 #poll {
-    /* position: absolute; */
     text-decoration: none;
     background-color: rgb(233, 105, 0);
     padding: 7px 10px;
     color: white;
     font-weight: bold;
-    /* right: 25px;
-    top: 35px; */
     border-radius: 5px;
 }

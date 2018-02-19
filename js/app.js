@@ -21,11 +21,9 @@ const poll = {
     getSettings: function () {
         if (localStorage.getItem('settings')) {
             const savedSettings = JSON.parse(localStorage.getItem('settings'));
-            console.log('!!!!!!!!! ', savedSettings);
 
             this.img = parseInt(savedSettings.img);
             this.rounds = parseInt(savedSettings.rounds);
-            console.log(this);
         }
     },
 
@@ -64,7 +62,6 @@ const poll = {
 
     showProduct: function () {
         const randProd = this.getRandomProduct();
-        // const allDiv = document.querySelectorAll('div.item');
         const section = document.getElementById('row');
 
         for (let i = 0; i < randProd.length; i++) {
