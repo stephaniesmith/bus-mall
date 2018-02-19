@@ -10,6 +10,7 @@ header {
     justify-content: space-around;
     margin: 50px 100px;
     background-color: rgba(87, 87, 87, 0.281);
+    min-width: fit-content;
 }
 
 main {
@@ -22,6 +23,7 @@ form {
     margin: 50px 100px;
     background-color: rgba(87, 87, 87, 0.281);
     padding: 20px;
+    min-width: fit-content;
 }
 
 fieldset {
@@ -40,11 +42,12 @@ fieldset {
 }
 
 #take-poll {
-    padding: 10px;
+    padding: 10px 25px;
     text-align: center;
     height: 100%;
     margin: 50px 100px 25px 100px;
     background-color: rgba(87, 87, 87, 0.281);
+    min-width: fit-content;
 }
 
 #item {
@@ -143,4 +146,19 @@ footer div {
     color: white;
     font-weight: bold;
     border-radius: 5px;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 10px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 130%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: rgb(233, 105, 0);
+    margin-right: 25px;
 }
