@@ -7,3 +7,6 @@ This is a site for BusMall, a fictional magazine similar to SkyMall. On this sit
 
 ## Getting Started
 Press the 'Take Poll' button and choose which products you like best. Want to change the settings on the poll click the 'Settings' button and fill out the form. 
+
+## Site URL
+https://stephaniesmith.github.io/bus-mall/
